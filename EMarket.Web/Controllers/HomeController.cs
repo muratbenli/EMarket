@@ -5,14 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EMarket.Web.Models;
+using EMarket.ApplicationCore.Interfaces;
 
 namespace EMarket.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index([FromServices] ICategoryService categoryService)
         {
-            return View();
+            return View(categoryService.ListCategories()); 
         }
 
         public IActionResult Privacy()
