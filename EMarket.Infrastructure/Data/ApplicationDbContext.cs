@@ -24,5 +24,6 @@ namespace EMarket.Infrastructure.Data
 
         public DbSet<Category> Categories { get; set; }
 
+
     }
 }
