@@ -16,6 +16,8 @@ using EMarket.Infrastructure.Data;
 using EMarket.ApplicationCore.Entities;
 using EMarket.ApplicationCore.Interfaces;
 using EMarket.ApplicationCore.Services;
+using EMarket.Web.Interfaces;
+using EMarket.Web.Services;
 
 namespace EMarket.Web
 {
@@ -49,6 +51,8 @@ namespace EMarket.Web
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddScoped<IHomeIndexViewModelService, HomeIndexViewModelService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
