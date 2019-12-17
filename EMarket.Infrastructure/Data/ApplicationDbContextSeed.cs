@@ -1,4 +1,5 @@
-﻿using EMarket.ApplicationCore.Entities;
+﻿using EMarket.ApplicationCore.Constants;
+using EMarket.ApplicationCore.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,9 @@ namespace EMarket.Infrastructure.Data
 
         public static async Task SeedUsersAndRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (!await roleManager.RoleExistsAsync("admin"))
+            if (!await roleManager.RoleExistsAsync(AuthorizationConstants.Roles.ADMINISTRATOR))
             {
-                await roleManager.CreateAsync(new IdentityRole { Name = "admin" });
+                await roleManager.CreateAsync(new IdentityRole(AuthorizationConstants.Roles.ADMINISTRATOR));
             }
 
             var adminUserName = "muratbenli001@gmail.com";
@@ -35,11 +36,11 @@ namespace EMarket.Infrastructure.Data
                 {
                     UserName = adminUserName,
                     Email = adminUserName
-                }, "Password1.");
+                }, AuthorizationConstants.DEFAULT_PASSWORD);
 
                 var adminUser = await userManager.FindByNameAsync(adminUserName);
 
-                await userManager.AddToRoleAsync(adminUser, "admin");
+                await userManager.AddToRoleAsync(adminUser, AuthorizationConstants.Roles.ADMINISTRATOR);
             }
         }
     }
