@@ -15,8 +15,7 @@ namespace EMarket.Infrastructure.Data
         {
             if (!context.Categories.Any())
             {
-                context.Categories.Add(new Category { CategoryName = "Ayakkabı" });
-                context.Categories.Add(new Category { CategoryName = "Kıyafet" });
+                context.Categories.AddRange(Categories());
                 context.SaveChanges();
             }
         }
@@ -42,6 +41,40 @@ namespace EMarket.Infrastructure.Data
 
                 await userManager.AddToRoleAsync(adminUser, AuthorizationConstants.Roles.ADMINISTRATOR);
             }
+        }
+
+        // this method calls dump categories and products
+        private static readonly Random rnd = new Random();
+        public static List<Category> Categories(int count = 5, int productCountPerCategory = 99)
+        {
+            var categories = new List<Category>();
+            var pid = 1;
+
+            for (int i = 1; i <= count; i++)
+            {
+                var category = new Category
+                {
+                    CategoryName = "Category " + i,
+                    Products = new List<Product>()
+                };
+
+                for (int j = 0; j < productCountPerCategory; j++)
+                {
+                    category.Products.Add(
+                        new Product
+                        {
+                            CategoryId = i,
+                            ProductName = "Product " + pid,
+                            UnitPrice = rnd.Next(1, 11) * 10.00m
+                        }
+                    );
+                    pid++;
+                }
+
+                categories.Add(category);
+            }
+
+            return categories;
         }
     }
 }
