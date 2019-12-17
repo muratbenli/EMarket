@@ -10,7 +10,7 @@ namespace EMarket.Infrastructure.Data
 {
     public class ApplicationDbContextSeed
     {
-        public static void Seed(ApplicationDbContext context)
+        public static void SeedProductsAndCategories(ApplicationDbContext context)
         {
             if (!context.Categories.Any())
             {
@@ -20,7 +20,7 @@ namespace EMarket.Infrastructure.Data
             }
         }
 
-        public static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedUsersAndRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (!await roleManager.RoleExistsAsync("admin"))
             {
