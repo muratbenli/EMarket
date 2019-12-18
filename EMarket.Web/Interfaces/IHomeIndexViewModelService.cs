@@ -8,6 +8,7 @@ namespace EMarket.Web.Interfaces
 {
     public interface IHomeIndexViewModelService
     {
-        HomeIndexViewModel GetHomeIndexViewModel(int? categoryId);
+        HomeIndexViewModel GetHomeIndexViewModel(int? categoryId, int pageIndex, int productsPerPage);
+
     }
 }

@@ -11,5 +11,8 @@ namespace EMarket.Web.ViewModels
         public List<CategoryViewModel> Categories { get; set; }
 
         public List<Product> Products { get; set; }
+
+        public PaginationInfoViewModel PaginationInfo { get; set; }
+
     }
 }
