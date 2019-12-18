@@ -20,12 +20,26 @@ namespace EMarket.Web.Services
             _categoryRepository = categoryRepository;
             _productRepository = productRepository;
         }
-        public HomeIndexViewModel GetHomeIndexViewModel()
+        public HomeIndexViewModel GetHomeIndexViewModel(int? categoryId)
         {
+            var products = _productRepository.GetAll();
+
+            if (categoryId != null)
+            {
+                products = products.Where(x => x.CategoryId == categoryId);
+            }
+
             var vm = new HomeIndexViewModel
             {
-                Categories = _categoryRepository.GetAll().ToList(),
-                Products = _productRepository.GetAll().ToList()
+                Categories = _categoryRepository.GetAll()
+                .Select(x => new CategoryViewModel
+                {
+                    Id = x.Id,
+                    CategoryName = x.CategoryName,
+                    ProductCount = x.Products.Count
+                })
+                .ToList(),
+                Products = products.ToList()
             };
 
             return vm;

@@ -9,30 +9,27 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="shop-sidebar mr-50">
-
-
                     <div class="sidebar-widget mb-45">
                         <h3 class="sidebar-title">Categories</h3>
                         <div class="sidebar-categories">
                             <ul>
                                 @foreach (var item in Model.Categories)
                                 {
-                                    <li><a href="#">@item.CategoryName <span>?</span></a></li>
-
+                                    <li>
+                                        <a asp-route-cid="@item.Id">
+                                            @item.CategoryName <span>@item.ProductCount</span>
+                                        </a>
+                                    </li>
                                 }
                             </ul>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="shop-product-wrapper res-xl res-xl-btn">
                     <div class="shop-bar-area">
-                        <div class="shop-bar pb-60">
+                        <div class="shop-bar pb-20">
                             <div class="shop-found-selector">
                                 <div class="shop-found">
                                     <p><span>23</span> Product Found of <span>50</span></p>

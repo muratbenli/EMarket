@@ -18,9 +18,9 @@ namespace EMarket.Web.Controllers
             _homeIndexViewModelService = homeIndexViewModelService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? cid)
         {
-            return View(_homeIndexViewModelService.GetHomeIndexViewModel());
+            return View(_homeIndexViewModelService.GetHomeIndexViewModel(cid));
         }
 
         public IActionResult Privacy()
