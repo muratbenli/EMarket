@@ -1,0 +1,41 @@
+﻿@model PaginationInfoViewModel
+@{
+    var routeData = ViewContext.HttpContext.Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
+}
+
+<style>
+    li.passive a {
+        pointer-events: none;
+    }
+</style>
+
+<div class="pagination-style mt-30 text-center">
+    <ul>
+        <li class="@Model.Previous">
+            <a asp-all-route-data="@routeData" asp-route-p="@(Model.ActualPage - 1)">
+                <i class="ti-angle-left"></i>
+            </a>
+        </li>
+        @foreach (var i in (int[])ViewBag.numbers)
+        {
+            if (i == -1)
+            {
+                <li class="passive">
+                    <a href="">. . .</a>
+                </li>
+            }
+            else
+            {
+                <li class="@(i == Model.ActualPage ? "active" : "")">
+                    <a asp-all-route-data="@routeData" asp-route-p="@i">@i</a>
+                </li>
+            }
+        }
+        <li class="@Model.Next">
+            <a asp-all-route-data="@routeData" asp-route-p="@(Model.ActualPage + 1)">
+                <i class="ti-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+

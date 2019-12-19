@@ -285,78 +285,9 @@
                         </div>
                     </div>
                 </div>
-                <style>
-                    li.passive a {
-                        pointer-events: none;
-                    }
-                </style>
-                @{
-                    var routeData = ViewContext.HttpContext.Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
 
-                    // https://gist.github.com/kottenator/9d936eb3e4e3c3e02598 (Simple Pagination)
-                    int[] PageNumbers(int current, int last)
-                    {
-                        int delta = 1, l = 0;
-
-                        int left = current - delta;
-                        int right = current + delta + 1;
-
-                        List<int> range = new List<int>();
-                        List<int> rangeWithDots = new List<int>();
-
-                        for (int i = 1; i <= last; i++)
-                        {
-                            if (i == 1 || i == last || i >= left && i < right)
-                                range.Add(i);
-                        }
-
-                        foreach (var i in range)
-                        {
-                            if (l != 0)
-                            {
-                                if (i - l == 2)
-                                    rangeWithDots.Add(l + 1);
-                                else if (i - l != 1)
-                                    rangeWithDots.Add(-1);
-                            }
-                            rangeWithDots.Add(i);
-                            l = i;
-                        }
-
-                        return rangeWithDots.ToArray();
-                    }
-
-                    var numbers = PageNumbers(Model.PaginationInfo.ActualPage, Model.PaginationInfo.TotalPages);
-                }
-                <div class="pagination-style mt-30 text-center">
-                    <ul>
-                        <li class="@Model.PaginationInfo.Previous">
-                            <a asp-all-route-data="@routeData" asp-route-p="@(Model.PaginationInfo.ActualPage - 1)">
-                                <i class="ti-angle-left"></i>
-                            </a>
-                        </li>
-                        @foreach (var i in numbers)
-                        {
-                            if (i == -1)
-                            {
-                                <li class="passive">
-                                    <a href="">. . .</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="@(i == Model.PaginationInfo.ActualPage ? "active" : "")">
-                                    <a asp-all-route-data="@routeData" asp-route-p="@i">@i</a>
-                                </li>
-                            }
-                        }
-                        <li class="@Model.PaginationInfo.Next">
-                            <a asp-all-route-data="@routeData" asp-route-p="@(Model.PaginationInfo.ActualPage + 1)">
-                                <i class="ti-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <vc:pagination pagination-info="Model.PaginationInfo"></vc:pagination>
+                <
             </div>
         </div>
     </div>
