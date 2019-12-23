@@ -18,6 +18,7 @@ using EMarket.ApplicationCore.Interfaces;
 using EMarket.ApplicationCore.Services;
 using EMarket.Web.Interfaces;
 using EMarket.Web.Services;
+using EMarket.Infrastructure.Services;
 
 namespace EMarket.Web
 {
@@ -65,6 +66,9 @@ namespace EMarket.Web
                 options.Cookie.IsEssential = true;
             });
 
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<IBasketService, BasketService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

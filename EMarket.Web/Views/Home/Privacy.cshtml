@@ -5,3 +5,9 @@
 
 <p>Use this page to detail your site's privacy policy.</p>
 
+@foreach (var item in ViewBag.items)
+{
+    <p>
+        @item.ProductName @item.UnitPrice  @item.Quantity
+    </p>
+}

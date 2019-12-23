@@ -28,7 +28,8 @@ namespace EMarket.Infrastructure.Services
             }
         }
 
-        public IReadOnlyCollection<BasketItem> BasketItem => _basket.Items;
+
+        public IReadOnlyCollection<BasketItem> BasketItems => _basket.Items;
 
         public void AddItemToBasket(int productId, string productName, decimal unitPrice, string imagePath, int quantity = 1)
         {

@@ -24,8 +24,10 @@ namespace EMarket.Web.Controllers
             return View(_homeIndexViewModelService.GetHomeIndexViewModel(cid, p ?? 1, Constants.ITEMS_PER_PAGE));
         }
 
-        public IActionResult Privacy()
+        public IActionResult Privacy([FromServices] IBasketService basketService)
         {
+            basketService.AddItemToBasket(1, "Kola", 3.5m, "", 3);
+            ViewBag.items = basketService.BasketItems;
             return View();
         }
 
