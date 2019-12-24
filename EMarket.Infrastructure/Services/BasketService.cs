@@ -29,7 +29,7 @@ namespace EMarket.Infrastructure.Services
         }
 
 
-        public IReadOnlyCollection<BasketItem> BasketItems => _basket.Items;
+        public IReadOnlyCollection<BasketItem> BasketItems => _basket.Items.AsReadOnly();
 
         public void AddItemToBasket(int productId, string productName, decimal unitPrice, string imagePath, int quantity = 1)
         {
@@ -57,7 +57,7 @@ namespace EMarket.Infrastructure.Services
 
         private void SaveBasketToSession()
         {
-            _httpContextAccessor.HttpContext.Session.Set("basket", _basket);
+            _httpContextAccessor.HttpContext.Session.Set<Basket>("basket", _basket);
         }
     }
 }

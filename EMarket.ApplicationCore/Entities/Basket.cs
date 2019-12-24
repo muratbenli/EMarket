@@ -7,15 +7,13 @@ namespace EMarket.ApplicationCore.Entities
 {
     public class Basket
     {
-        private readonly List<BasketItem> _items = new List<BasketItem>();
-
-        public IReadOnlyCollection<BasketItem> Items => _items.AsReadOnly();
+        public List<BasketItem> Items { get; set; } = new List<BasketItem>();
 
         public void AddItem(int productId, string productName, decimal unitPrice, string imagePath, int quantity = 1)
         {
-            if (!_items.Any(x => x.ProductId == productId))
+            if (!Items.Any(x => x.ProductId == productId))
             {
-                _items.Add(new BasketItem
+                Items.Add(new BasketItem
                 {
                     ProductId = productId,
                     ProductName = productName,
@@ -26,12 +24,12 @@ namespace EMarket.ApplicationCore.Entities
                 });
                 return;
             }
-            _items.FirstOrDefault(x => x.ProductId == productId).Quantity += quantity;
+            Items.FirstOrDefault(x => x.ProductId == productId).Quantity += quantity;
         }
 
         public void RemoveItem(int productId)
         {
-            _items.RemoveAll(x => x.ProductId == productId);
+            Items.RemoveAll(x => x.ProductId == productId);
         }
     }
 }
