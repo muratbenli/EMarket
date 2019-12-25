@@ -326,14 +326,16 @@
     <script>
         $("[data-add-to-basket-id]").click(function (e) {
             e.preventDefault();
+
             var id = $(this).data("add-to-basket-id");
 
             $.ajax({
                 type: "POST",
-                url : "@Url.Action("AddToBasket","Basket")",
+                url : "@Url.Action("AddToBasket", "Basket")",
                 data: {productId : id},
                 success: function (data) {
                     console.log(data);
+                    $(".header-cart").replaceWith(data.headerBasketHtml);
                 }
             });
         });
