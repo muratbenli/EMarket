@@ -243,7 +243,7 @@
                                     <li><a href="register.html">Register</a></li>
                                     <li><a href="#">Support</a></li>
                                     <li><a href="#">Track</a></li>
-                                </ul>   
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -321,6 +321,50 @@
     <script src="~/assets/js/owl.carousel.min.js"></script>
     <script src="~/assets/js/plugins.js"></script>
     <script src="~/assets/js/main.js"></script>
+
+
+    <script>
+        $("[data-add-to-basket-id]").click(function (e) {
+            e.preventDefault();
+
+            var id = $(this).data("add-to-basket-id");
+
+            $.ajax({
+                type: "POST",
+                url : "@Url.Action("AddToBasket", "Basket")",
+                data: {productId : id},
+                success: function (data) {
+                    console.log(data);
+                    $(".header-cart").replaceWith(data.headerBasketHtml);
+                }
+            });
+        });
+
+
+        //})
+        //    $("[data-remove-from-basket-id]").click(function (e) {
+        $("body").on("click", "[data-remove-from-basket-id]", function (e) {
+            e.preventDefault();
+
+            var id = $(this).data("remove-from-basket-id");
+
+            $.ajax({
+                type: "POST",
+                url : "@Url.Action("RemoveFromBasket", "Basket")",
+                data: {productId : id},
+                success: function (data) {
+                    var html = $.parseHTML(data.headerBasketHtml);
+
+                    var cartDropdown = $(html).find(".cart-dropdown");
+                    $(".cart-dropdown").html(cartDropdown.html());
+
+                    var cartItemCount = $(html).find(".cart-item-count");
+                    $(".cart-item-count").html(cartItemCount.html());
+                }
+            });
+        });
+    </script>
+
 
     @RenderSection("Scripts", required: false)
 

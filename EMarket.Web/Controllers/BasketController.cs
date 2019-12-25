@@ -43,6 +43,20 @@ namespace EMarket.Web.Controllers
             return Json(vm); // toplam oge sayisini ve sepet html'ini dondur
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromBasket(int productId)
+        {
+            _basketViewModelService.RemoveFromBasket(productId);
+
+            var vm = new AjaxHeaderBasketViewModel
+            {
+                HeaderBasketHtml = await RenderViewComponentAsync("HeaderCart", null),
+                TotalItems = _basketViewModelService.TotalItems()
+            };
+
+            return Json(vm); // toplam oge sayisini ve sepet html'ini dondur
+        }
+
         // https://gist.github.com/pauldotknopf/b424e9b8b03d31d67f3cce59f09ab17f
         public async Task<string> RenderViewComponentAsync(string viewComponent, object args = null)
         {
