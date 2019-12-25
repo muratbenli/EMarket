@@ -1,6 +1,7 @@
 ﻿using EMarket.ApplicationCore.Entities;
 using EMarket.ApplicationCore.Interfaces;
 using EMarket.Web.Interfaces;
+using EMarket.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,18 @@ namespace EMarket.Web.Services
         public IReadOnlyCollection<BasketItem> GetBasketItems()
         {
             return _basketService.BasketItems;
+        }
+
+        public HeaderCartViewModel GetHeaderCartViewModel()
+        {
+            var vm = new HeaderCartViewModel
+            {
+                TotalItems = _basketService.GetBasketItemCount(),
+                BasketItems = _basketService.BasketItems,
+                TotalPrice = _basketService.BasketItems.Sum(x => x.Quantity * x.UnitPrice)
+            };
+
+            return vm;
         }
 
         public int TotalItems()

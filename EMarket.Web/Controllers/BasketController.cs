@@ -16,6 +16,7 @@ namespace EMarket.Web.Controllers
         {
             _basketViewModelService = basketViewModelService;
         }
+
         public IActionResult Index()
         {
             return View();
